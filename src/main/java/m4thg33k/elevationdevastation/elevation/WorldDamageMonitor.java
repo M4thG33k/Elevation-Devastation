@@ -13,7 +13,7 @@ public class WorldDamageMonitor {
     private DamageFunction damageFunction;
 
     public WorldDamageMonitor() {
-        damageFunction = new DamageFunction("gt(time, 9000, lt(y, 40, (40- y) / 10, 0), 0)");
+        damageFunction = new DamageFunction("gt(time, 9000, lt(y, 40, (40- y) / 10, gt(y, 80, (y - 80) / 10, 0)), 0)");
     }
 
     public void handleWorld(World world) {

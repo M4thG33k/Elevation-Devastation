@@ -34,7 +34,10 @@ public class FunctionParser {
                 function = function.substring(m.group(1).length());
                 continue;
             } else if (function.charAt(0) == ',') {
-                // skip commas - should only be used inside functions
+                // commas should only be used inside functions, but we need to pop operators until the open
+                // parenthesis is found - but DON'T pop the parenthesis off!
+                moveUntilOpenFound();
+
                 function = function.substring(1);
                 continue;
             }
@@ -46,6 +49,9 @@ public class FunctionParser {
             } else if (function.charAt(0) == ')') {
                 // close parenthesis - move operators from stack to output until an open parenthesis is found
                 FunctionParser.moveUntilOpenFound();
+                if (operators.peek() instanceof  OpenParenOperator){
+                    operators.pop();
+                }
                 function = function.substring(1);
 //            } else if (variablePattern.matcher(function).matches()) {
 //                // we match the pattern for a variable ("x", "y", "z", or "time") - push the variable to the output
@@ -135,7 +141,6 @@ public class FunctionParser {
             EquationOperator top = operators.peek();
             if (top instanceof OpenParenOperator) {
                 // found the open parenthesis
-                operators.pop();
                 return;
             } else {
                 // not the open parenthesis - move the operator
@@ -148,7 +153,7 @@ public class FunctionParser {
     }
 
     protected static void moveOperatorToOutput() throws FunctionParseException {
-        // todo FIX INCORRECT INPUTS BEING PASSED TO OPERATORS INSIDE OF FUNCTIONS
+        // todo FIX INCORRECT INPUTS BEING PASSED TO OPERATORS INSIDE OF FUNCTIONS::q
         if (operators.size() == 0) {
             throw new FunctionParseException("Operator stack empty");
         }
