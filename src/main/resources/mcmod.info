@@ -1,0 +1,16 @@
+[
+{
+  "modid": "elevationdevastation",
+  "name": "Elevation Devastation",
+  "description": "Description TBD. In short: players get hurt depending on their elevation (y-level)",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["M4thG33k"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
